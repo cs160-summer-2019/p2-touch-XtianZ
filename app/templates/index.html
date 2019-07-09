@@ -87,15 +87,67 @@
 	  // your solution here
     
     $(document).ready(()=> {
-      hammertime.get('rotate').set({ enable: true });
+      var rot = document.getElementById('rotate-box');
+      var pin = document.getElementById('pinch-box');
+      var prs = document.getElementById('press-box');
+      var pn = document.getElementById('pan-box');
+      var tp = document.getElementById('tap-box');
+      var swp = document.getElementById('swipe-box');
+      
+/*      hammertime.get('rotate').set({ enable: true });
       hammertime.get('pinch').set({ enable: true });
       hammertime.get('press').set({ enable: true });
       hammertime.get('pan').set({ enable: true });
       hammertime.get('tap').set({ enable: true });
-      hammertime.get('swipe').set({ enable: true });
+      hammertime.get('swipe').set({ enable: true }); */
       
+      var rotate = new Hammer.Rotate();
+      var pinch = new Hammer.Pinch();
+      var press = new Hammer.Press();
+      var pan = new Hammer.Pan();
+      var tap = new Hammer.Tap();
+      var swipe = new Hammer.Swipe();
       
-    });
+      var mcrotate = new Hammer.Manager(rot);
+      var mcpinch = new Hammer.Manager(pin);
+      var mcpress = new Hammer.Manager(prs);
+      var mcpan = new Hammer.Manager(pn);
+      var mctap = new Hammer.Manager(tp);
+      var mcswipe = new Hammer.Manager(swp);
+      
+      mcrotate.add(rotate);
+      mcpinch.add(pinch);
+      mcpress.add(press);
+      mcpan.add(pan);
+      mctap.add(tap);
+      mcswipe.add(swipe);
+      
+      mcrotate.on('rotate', function(ev_rotate) {
+        rot.textContent = 'Done';
+        $('#rotate-box').css('backgroundColor', 'red');
+      });
+      mcpinch.on('pinch', function(ev_pinch) {
+        pin.textContent = 'Done';
+        $('#pinch-box').css('backgroundColor', 'orange');
+      }); 
+      mcpress.on('press', function(ev_press) {
+        prs.textContent = 'Done';
+        $('#press-box').css('backgroundColor', 'yellow');
+      }); 
+      mcpan.on('pan', function(ev_pan) {
+        pn.textContent = 'Done';
+        $('#pan-box').css('backgroundColor', 'green');
+      }); 
+      mctap.on('tap', function(ev_tap) {
+        tp.textContent = 'Done';
+        $('#tap-box').css('backgroundColor', 'blue');
+      }); 
+      mcswipe.on('swipe', function(ev_swipe) {
+        swp.textContent = 'Done';
+        $('#swipe-box').css('backgroundColor', 'purple');
+      }); 
+      
+    }); 
     
   </script>
 </body>
